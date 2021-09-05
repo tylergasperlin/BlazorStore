@@ -1,0 +1,14 @@
+@page "/databinding"
+
+<h3>Data Binding</h3>
+
+<input type="number" value="@numberParam">
+<button @onclick="UpdateValue"> Change Value</button>
+
+@code {
+    int numberParam = 10;
+
+    void UpdateValue() {
+        numberParam = numberParam + 1;
+    }
+}
