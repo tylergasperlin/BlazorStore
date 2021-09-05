@@ -4,6 +4,7 @@
     <GrandChildComponent/>
     <h1>@Message</h1>
     <button @onclick="@ClickAction"> Click action </button>
+    <p> @methodText </p>
 </div>
 
 @code{
@@ -19,4 +20,11 @@
     private void ClickAction() {
         OnClickCallback.InvokeAsync("Sending data from child");
     }
+
+    string methodText = "default method text";
+    public void Show() {
+        methodText = "Show method called";
+        StateHasChanged();
+    }
+
 }

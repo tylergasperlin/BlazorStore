@@ -2,10 +2,11 @@
 
 <h3 style="background-color:pink">Parent Component</h3>
 <p>@buttonMessage 3</p>
+<button @onclick="OnClick"> Click to use child method </button>
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage"/>
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" @ref="childComponentRef"/>
         </CascadingValue>
     </CascadingValue>
 </CascadingValue>
@@ -20,5 +21,11 @@
     string buttonMessage = "default message";
     private void GetMessage(string m) {
         buttonMessage = m;
+    }
+
+    private TheChildComponent childComponentRef;
+
+    void OnClick() {
+        childComponentRef.Show();
     }
 }
