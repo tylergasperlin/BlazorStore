@@ -24,6 +24,7 @@
     string methodText = "default method text";
     public void Show() {
         methodText = "Show method called";
+        // Notify child component that state changed and needs to rerender
         StateHasChanged();
     }
 
