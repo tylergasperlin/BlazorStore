@@ -3,10 +3,14 @@
 <h3 style="background-color:pink">Parent Component</h3>
 <p>@buttonMessage 3</p>
 <button @onclick="OnClick"> Click to use child method </button>
+<br/>
+<br/>
+<p>Parent bound value: @BoundNumber</p>
+<button @onclick="UpdateBoundNumber"> Click to update bound value </button>
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" Items="@productList"
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" Items="@productList" @bind-ParentBoundNumber="@BoundNumber"
                 @ref="childComponentRef">
                 <SectionContentFromChild Context="prod">
                     <div style="background-color: lightblue">

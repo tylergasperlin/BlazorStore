@@ -1,36 +1,44 @@
 using System.Collections.Generic;
 using BlazorStore.Components;
 using BlazorStore.Models;
+using Microsoft.AspNetCore.Components;
 
 namespace BlazorStore.Pages
 {
     public partial class ParentComponent
     {
-    public string MessageParent { get; set; } = "I am from parent";
+        public string MessageParent { get; set; } = "I am from parent";
 
-    public int Age { get; set; }
+        public int Age { get; set; }
 
-    public string Name { get; set; } = "Tyler Name";
+        public string Name { get; set; } = "Tyler Name";
 
-    string buttonMessage = "default message";
-    private void GetMessage(string m)
-    {
-        buttonMessage = m;
-    }
+        string buttonMessage = "default message";
+        private void GetMessage(string m)
+        {
+            buttonMessage = m;
+        }
 
-    private TheChildComponent<Product> childComponentRef;
+        private TheChildComponent<Product> childComponentRef;
 
-    void OnClick()
-    {
-        childComponentRef.Show();
-    }
+        void OnClick()
+        {
+            childComponentRef.Show();
+        }
 
-    bool isDisplayed = true;
+        bool isDisplayed = true;
 
-    List<Product> productList = new List<Product> {
-        new Product{ Id=1, Name="Dodge", Price=50000},
-        new Product{ Id=2, Name="Chevy", Price=200000},
-        new Product{ Id=3, Name="Jeep", Price=120000}    
-    };
+        List<Product> productList = new List<Product> {
+            new Product{ Id=1, Name="Dodge", Price=50000},
+            new Product{ Id=2, Name="Chevy", Price=200000},
+            new Product{ Id=3, Name="Jeep", Price=120000}
+        };
+
+        private int BoundNumber {get; set;} = 1;
+        void UpdateBoundNumber() {
+            BoundNumber = BoundNumber + 1;
+        }
+
+
     }
 }

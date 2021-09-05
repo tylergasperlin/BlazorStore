@@ -1,9 +1,14 @@
-
-@typeparam TItem 
+@typeparam TItem
 
 <div style="background-color:lightgreen">
     <h3> Los Child Component </h3>
     <h5 style="color:red"> @Title </h5>
+    <br />
+    <br />
+    <p> Bound number at child: @ParentBoundNumber </p>
+    <button @onclick="UpdateValue">Update bound number from child</button>
+    <br />
+    <br />
     <GrandChildComponent />
     <h1>@Message</h1>
     <button @onclick="@ClickAction"> Click action </button>
@@ -15,12 +20,11 @@
         }
         <br />
         <br />
-        <br />
-        <br />
-        <br />
+
         <br />
         @SectionContentFromChild2
     </div>
+
 </div>
 
 @code {
@@ -58,8 +62,18 @@
 
     [Parameter]
     // We use TItems to make a generic component
-    public List<TItem> Items {get;set;}
+    public List<TItem> Items { get; set; }
 
+    [Parameter]
+    public int ParentBoundNumber { get; set; }
 
+    // ParentBoundNumberChanged must match ParentBoundNumber property + changed
+    [Parameter]
+    public EventCallback<int> ParentBoundNumberChanged { get; set; }
 
+    void UpdateValue()
+    {
+        ParentBoundNumber = ParentBoundNumber + 1;
+        ParentBoundNumberChanged.InvokeAsync(ParentBoundNumber);
+    }
 }
