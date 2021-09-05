@@ -2,7 +2,7 @@
 
 <h3>Data Binding</h3>
 
-<input type="number" @bind-value="@numberParam" >
+<input type="number" @bind-value="@numberParam" @bind-value:event="oninput">
 <button @onclick="UpdateValue"> Change Value</button>
 <p>Variable: @numberParam</p>
 
