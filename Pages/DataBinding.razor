@@ -2,13 +2,20 @@
 
 <h3>Data Binding</h3>
 
-<input type="number" value="@numberParam">
+<input type="number" value="@numberParam" @onchange="handleInputChange">
 <button @onclick="UpdateValue"> Change Value</button>
+<p>Variable: @numberParam</p>
 
 @code {
     int numberParam = 10;
 
     void UpdateValue() {
         numberParam = numberParam + 1;
+    }
+
+    void handleInputChange(ChangeEventArgs e) {
+        int val = 0;
+        int.TryParse(e.Value.ToString(), out val);
+        numberParam = val;
     }
 }
