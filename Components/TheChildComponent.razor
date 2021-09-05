@@ -68,12 +68,13 @@
     public int ParentBoundNumber { get; set; }
 
     // ParentBoundNumberChanged must match ParentBoundNumber property + changed
+    // Otherwise you can use a custom name but then you must define the event as the component is instantiated in the parent component
     [Parameter]
-    public EventCallback<int> ParentBoundNumberChanged { get; set; }
+    public EventCallback<int> eventCallBack { get; set; }
 
     void UpdateValue()
     {
         ParentBoundNumber = ParentBoundNumber + 1;
-        ParentBoundNumberChanged.InvokeAsync(ParentBoundNumber);
+        eventCallBack.InvokeAsync(ParentBoundNumber);
     }
 }

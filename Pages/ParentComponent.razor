@@ -10,7 +10,7 @@
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" Items="@productList" @bind-ParentBoundNumber="@BoundNumber"
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" Items="@productList" @bind-ParentBoundNumber="@BoundNumber" @bind-ParentBoundNumber:event="eventCallBack"
                 @ref="childComponentRef">
                 <SectionContentFromChild Context="prod">
                     <div style="background-color: lightblue">
