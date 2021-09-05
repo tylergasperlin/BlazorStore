@@ -1,3 +1,6 @@
+
+@typeparam TItem 
+
 <div style="background-color:lightgreen">
     <h3> Los Child Component </h3>
     <h5 style="color:red"> @Title </h5>
@@ -6,7 +9,7 @@
     <button @onclick="@ClickAction"> Click action </button>
     <p> @methodText </p>
     <div>
-        @foreach (Product prod in productList)
+        @foreach (TItem prod in Items)
         {
             @SectionContentFromChild(prod)
         }
@@ -33,7 +36,8 @@
     [Parameter]
     // Segment of UI content = renderfragment
     // Note that the parent component wraps contents in <SectionContent/>
-    public RenderFragment<Product> SectionContentFromChild { get; set; }
+    // We use TItems to make a generic component
+    public RenderFragment<TItem> SectionContentFromChild { get; set; }
 
     [Parameter]
     public RenderFragment SectionContentFromChild2 { get; set; }
@@ -52,12 +56,9 @@
         StateHasChanged();
     }
 
-    List<Product> productList = new List<Product> {
-        new Product{ Id=1, Name="Dodge", Price=50000},
-        new Product{ Id=2, Name="Chevy", Price=200000},
-        new Product{ Id=3, Name="Jeep", Price=120000}    
-    };
-
+    [Parameter]
+    // We use TItems to make a generic component
+    public List<TItem> Items {get;set;}
 
 
 

@@ -6,14 +6,13 @@
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage"
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" Items="@productList"
                 @ref="childComponentRef">
                 <SectionContentFromChild Context="prod">
                     <div style="background-color: lightblue">
                         <p>ID: @prod.Id</p>
                         <p>Name: @prod.Name</p>
                         <p>Price: @prod.Price</p>
-
                         <input type="text" />
                     </div>
                 </SectionContentFromChild>
@@ -27,7 +26,6 @@
                         <p>This is false</p>
                     }
                 </SectionContentFromChild2>
-
             </TheChildComponent>
         </CascadingValue>
     </CascadingValue>
@@ -46,7 +44,7 @@
         buttonMessage = m;
     }
 
-    private TheChildComponent childComponentRef;
+    private TheChildComponent<Product> childComponentRef;
 
     void OnClick()
     {
@@ -54,4 +52,11 @@
     }
 
     bool isDisplayed = true;
+
+    List<Product> productList = new List<Product> {
+        new Product{ Id=1, Name="Dodge", Price=50000},
+        new Product{ Id=2, Name="Chevy", Price=200000},
+        new Product{ Id=3, Name="Jeep", Price=120000}    
+    };
+
 }
