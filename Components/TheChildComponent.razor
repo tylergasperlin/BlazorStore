@@ -3,6 +3,7 @@
     <h5 style="color:red"> @Title </h5>
     <GrandChildComponent/>
     <h1>@Message</h1>
+    <button @onclick="@ClickAction"> Click action </button>
 </div>
 
 @code{
@@ -11,4 +12,11 @@
 
     [CascadingParameter (Name = "message")]
     public string Message { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnClickCallback { get; set; }
+
+    private void ClickAction() {
+        OnClickCallback.InvokeAsync("Sending data from child");
+    }
 }

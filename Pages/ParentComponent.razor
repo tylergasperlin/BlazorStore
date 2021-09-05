@@ -1,10 +1,11 @@
 @page "/pc"
 
 <h3 style="background-color:pink">Parent Component</h3>
+<p>@buttonMessage 3</p>
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" />
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage"/>
         </CascadingValue>
     </CascadingValue>
 </CascadingValue>
@@ -15,4 +16,9 @@
     public int Age {get;set;}
 
     public string Name {get;set;} = "Tyler Name";
+
+    string buttonMessage = "default message";
+    private void GetMessage(string m) {
+        buttonMessage = m;
+    }
 }
