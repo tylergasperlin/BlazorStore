@@ -8,22 +8,25 @@
         <CascadingValue Value="@Name" Name="name">
             <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage"
                 @ref="childComponentRef">
-                    <SectionContentFromChild>
-                        <div style="background-color: lightblue">
-                            <p>Content from parent to child</p>
-                            <input type="text" />
-                        </div>
-                    </SectionContentFromChild>
-                    <SectionContentFromChild2>
-                        @if (isDisplayed)
-                        {
-                            <p>This is true!</p>
-                        }
-                        else
-                        {
-                            <p>This is false</p>
-                        }
-                    </SectionContentFromChild2>  
+                <SectionContentFromChild Context="prod">
+                    <div style="background-color: lightblue">
+                        <p>ID: @prod.Id</p>
+                        <p>Name: @prod.Name</p>
+                        <p>Price: @prod.Price</p>
+
+                        <input type="text" />
+                    </div>
+                </SectionContentFromChild>
+                <SectionContentFromChild2>
+                    @if (isDisplayed)
+                    {
+                        <p>This is true!</p>
+                    }
+                    else
+                    {
+                        <p>This is false</p>
+                    }
+                </SectionContentFromChild2>
 
             </TheChildComponent>
         </CascadingValue>

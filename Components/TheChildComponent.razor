@@ -6,16 +6,17 @@
     <button @onclick="@ClickAction"> Click action </button>
     <p> @methodText </p>
     <div>
-        @SectionContentFromChild
+        @foreach (Product prod in productList)
+        {
+            @SectionContentFromChild(prod)
+        }
         <br />
         <br />
         <br />
         <br />
         <br />
         <br />
-        
         @SectionContentFromChild2
-
     </div>
 </div>
 
@@ -29,12 +30,21 @@
     [Parameter]
     public EventCallback<string> OnClickCallback { get; set; }
 
+    [Parameter]
+    // Segment of UI content = renderfragment
+    // Note that the parent component wraps contents in <SectionContent/>
+    public RenderFragment<Product> SectionContentFromChild { get; set; }
+
+    [Parameter]
+    public RenderFragment SectionContentFromChild2 { get; set; }
+
     private void ClickAction()
     {
         OnClickCallback.InvokeAsync("Sending data from child");
     }
 
     string methodText = "default method text";
+
     public void Show()
     {
         methodText = "Show method called";
@@ -42,13 +52,13 @@
         StateHasChanged();
     }
 
-    [Parameter]
-    // Segment of UI content = renderfragment
-    // Note that the parent component wraps contents in <SectionContent/>
-    public RenderFragment SectionContentFromChild { get; set; }
+    List<Product> productList = new List<Product> {
+        new Product{ Id=1, Name="Dodge", Price=50000},
+        new Product{ Id=2, Name="Chevy", Price=200000},
+        new Product{ Id=3, Name="Jeep", Price=120000}    
+    };
 
-    [Parameter]
-    public RenderFragment SectionContentFromChild2 { get; set; }
+
 
 
 }
