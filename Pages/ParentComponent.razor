@@ -6,7 +6,26 @@
 <CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
     <CascadingValue Value="@Age">
         <CascadingValue Value="@Name" Name="name">
-            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage" @ref="childComponentRef"/>
+            <TheChildComponent Title="Gooseberry falls param passed" OnClickCallback="@GetMessage"
+                @ref="childComponentRef">
+                    <SectionContentFromChild>
+                        <div style="background-color: lightblue">
+                            <p>Content from parent to child</p>
+                            <input type="text" />
+                        </div>
+                    </SectionContentFromChild>
+                    <SectionContentFromChild2>
+                        @if (isDisplayed)
+                        {
+                            <p>This is true!</p>
+                        }
+                        else
+                        {
+                            <p>This is false</p>
+                        }
+                    </SectionContentFromChild2>  
+
+            </TheChildComponent>
         </CascadingValue>
     </CascadingValue>
 </CascadingValue>
@@ -14,18 +33,22 @@
 @code {
     public string MessageParent { get; set; } = "I am from parent";
 
-    public int Age {get;set;}
+    public int Age { get; set; }
 
-    public string Name {get;set;} = "Tyler Name";
+    public string Name { get; set; } = "Tyler Name";
 
     string buttonMessage = "default message";
-    private void GetMessage(string m) {
+    private void GetMessage(string m)
+    {
         buttonMessage = m;
     }
 
     private TheChildComponent childComponentRef;
 
-    void OnClick() {
+    void OnClick()
+    {
         childComponentRef.Show();
     }
+
+    bool isDisplayed = true;
 }
