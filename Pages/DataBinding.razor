@@ -2,14 +2,19 @@
 
 <h3>Data Binding</h3>
 
-<input type="number" @bind-value="@numberParam" @bind-value:event="oninput">
+<input type="number" @bind="@numberParam" @bind:event="oninput">
+<input type="checkbox" @bind="@isChecked" @bind:event="onchange">
 <button @onclick="UpdateValue"> Change Value</button>
-<p>Variable: @numberParam</p>
+<p>Textbox Variable: @numberParam</p>
+<p>Check Variable: @isChecked</p>
 
 @code {
     int numberParam = 10;
+    bool isChecked = false;
 
     void UpdateValue() {
         numberParam = numberParam + 1;
+        isChecked = !isChecked;
     }
+
 }
