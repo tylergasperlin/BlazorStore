@@ -1,8 +1,18 @@
 @page "/pc"
 
 <h3 style="background-color:pink">Parent Component</h3>
-<TheChildComponent Title="Gooseberry falls"/>
+<CascadingValue Value="@MessageParent" Name="message" IsFixed="true">
+    <CascadingValue Value="@Age">
+        <CascadingValue Value="@Name" Name="name">
+            <TheChildComponent Title="Gooseberry falls param passed" />
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 
 @code {
+    public string MessageParent { get; set; } = "I am from parent";
 
+    public int Age {get;set;}
+
+    public string Name {get;set;} = "Tyler Name";
 }
