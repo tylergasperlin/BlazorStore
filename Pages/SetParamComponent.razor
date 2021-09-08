@@ -1,0 +1,29 @@
+@page "/p1/{SetParam?}"
+<h3> Set Param Component </h3>
+
+<p>@message </p>
+<p>@SetParam</p>
+
+@code {
+    string message;
+    [Parameter]
+    public string SetParam {get; set;}
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            if(parameters.TryGetValue<string>(nameof(SetParam), out var value)) {
+                if (value is null) {
+                    SetParam = "Some goose Value";
+                    message = "user no supply value :(";
+
+                } else if (value.Equals("bbb"))  {
+                    SetParam = "its me bbb";
+                }
+                
+                else {
+                    message = "user supply value ;) " + SetParam;
+                }
+            }
+            await base.SetParametersAsync(parameters);
+
+        }
+}
