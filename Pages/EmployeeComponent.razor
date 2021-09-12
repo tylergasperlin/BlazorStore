@@ -1,0 +1,17 @@
+@page "/EmployeeList"
+<h3>Employee Component</h3>
+@inject IEmployee employeeService
+
+@foreach (Employee employee in employeeList)
+{
+    <p>@employee.Name , @employee.Department </p>
+}
+
+@code{ 
+    List<Employee> employeeList;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        employeeList = employeeService.GetAllEmployees();
+    }
+}
