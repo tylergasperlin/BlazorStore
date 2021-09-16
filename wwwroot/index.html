@@ -20,6 +20,15 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.JSAlert = function () {
+            alert("Hello");
+        }
+        window.FindSum = function (no1, no2) {
+            sum = parseInt(no1) + parseInt(no2);
+            return sum;
+        }
+    </script>
 </body>
 
 </html>
