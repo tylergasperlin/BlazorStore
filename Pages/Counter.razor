@@ -5,10 +5,14 @@
 
 <p>Current count: @currentCount</p>
 <p>The sum is: @sum</p>
+<span>The number is: <span id="s1"> </span></span>
+<br/>
+<br/>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 <button class="btn btn-info" @onclick="ShowAlert">Show That Alert!</button>
 <button class="btn btn-danger" @onclick="ShowSum">Show That Sum!</button>
+<button class="btn btn-primary" onclick="GetNumber(2)">Get that Number!!!</button>
 
 @code {
 
@@ -18,7 +22,8 @@
     }
 
     int sum = 0;
-    public async void ShowSum(){
+    public async void ShowSum() 
+    {
         sum = await JS.InvokeAsync<int>("FindSum", 2, 5);
         StateHasChanged();
     }
@@ -28,5 +33,12 @@
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    [JSInvokable]
+    public static int ReturnArray(int index) 
+    {
+        int[] nos = { 10, 20, 30, 40 };
+        return nos[index];
     }
 }
