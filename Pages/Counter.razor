@@ -6,13 +6,24 @@
 <p>Current count: @currentCount</p>
 <p>The sum is: @sum</p>
 <span>The number is: <span id="s1"> </span></span>
-<br/>
-<br/>
+<br />
+<br />
+<span> Square Root: <span id="s2"> </span></span>
+<br />
+<br />
+<br />
+<br />
+<p> Message: @message </p>
+
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 <button class="btn btn-info" @onclick="ShowAlert">Show That Alert!</button>
 <button class="btn btn-danger" @onclick="ShowSum">Show That Sum!</button>
 <button class="btn btn-primary" onclick="GetNumber(2)">Get that Number!!!</button>
+<button class="btn btn-primary" onclick="GetSquareRoot(5)">Get that Square Root!!!</button>
+<button class="btn btn-primary" onclick="GetSquareRoot(5)">Get that Square Root!!!</button>
+<button class="btn btn-primary" onclick="JSFunction('the value')">JS Method call</button>
+<button class="btn btn-primary" @onclick="Helloer">Call class method from JSAlert</button>
 
 @code {
 
@@ -22,7 +33,7 @@
     }
 
     int sum = 0;
-    public async void ShowSum() 
+    public async void ShowSum()
     {
         sum = await JS.InvokeAsync<int>("FindSum", 2, 5);
         StateHasChanged();
@@ -36,9 +47,45 @@
     }
 
     [JSInvokable]
-    public static int ReturnArray(int index) 
+    public static int ReturnArray(int index)
     {
         int[] nos = { 10, 20, 30, 40 };
         return nos[index];
+
+    }
+
+    [JSInvokable]
+    public static Task<string> CalculateSquareRootAsync(int number)
+    {
+        var result = Math.Sqrt(number);
+        return Task.FromResult($"The square root of {number} is {result}");
+    }
+
+    private static Func<string, string> action;
+    private string message = "Select the button";
+
+    protected override void OnInitialized()
+    {
+        action = DotNetFunction;
+    }
+
+    private string DotNetFunction(string name)
+    {
+
+        message = $"{name}, DotNetFunction Called!";
+        StateHasChanged();
+        return message;
+    }
+
+    [JSInvokable]
+    public static string FunctionCaller(string name)
+    {
+        return action.Invoke(name);
+    }
+
+    private async Task Helloer()
+    {
+        Models.Person person = new Models.Person { Name = "Mustafa"};
+        await JS.InvokeVoidAsync("JSSayHello", DotNetObjectReference.Create(person));
     }
 }
