@@ -4,6 +4,9 @@
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
+<input @ref="inputElement" @bind="currentCount"/>
+<br />
+<br />
 <p>The sum is: @sum</p>
 <span>The number is: <span id="s1"> </span></span>
 <br />
@@ -27,6 +30,7 @@
 
 @code {
 
+    private ElementReference inputElement;
     public async void ShowAlert()
     {
         await JS.InvokeVoidAsync("JSAlert");
@@ -87,5 +91,10 @@
     {
         Models.Person person = new Models.Person { Name = "Mustafa"};
         await JS.InvokeVoidAsync("JSSayHello", DotNetObjectReference.Create(person));
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("blazorFocus.set", inputElement);
     }
 }
