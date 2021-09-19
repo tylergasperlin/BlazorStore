@@ -1,4 +1,7 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject CounterStateService CounterModel
+@implements IDisposable
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BlazorStore</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -14,7 +17,7 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter: @CounterModel.CounterCount
             </NavLink>
         </li>
         <li class="nav-item px-3">
@@ -33,5 +36,18 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Trigger rerender
+        CounterModel.Onchange += StateHasChanged;
+        base.OnInitialized();
+    }
+
+    public void Dispose() {
+        // unregister the event
+        CounterModel.Onchange -= StateHasChanged;
+
     }
 }

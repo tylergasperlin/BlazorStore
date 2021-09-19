@@ -1,10 +1,11 @@
 @page "/counter"
 @inject IJSRuntime JS;
+@inject CounterStateService CounterModel
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
-<input @ref="inputElement" @bind="currentCount"/>
+<p>Current count: @CounterModel.CounterCount</p>
+<input @ref="inputElement" @bind="CounterModel.CounterCount"/>
 <br />
 <br />
 <p>The sum is: @sum</p>
@@ -19,7 +20,7 @@
 <p> Message: @message </p>
 
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Count</button>
 <button class="btn btn-info" @onclick="ShowAlert">Show That Alert!</button>
 <button class="btn btn-danger" @onclick="ShowSum">Show That Sum!</button>
 <button class="btn btn-primary" onclick="GetNumber(2)">Get that Number!!!</button>
@@ -43,11 +44,11 @@
         StateHasChanged();
     }
 
-    private int currentCount = 0;
+    //private int currentCount = 0;
 
     private void IncrementCount()
     {
-        currentCount++;
+        CounterModel.CounterCount++;
     }
 
     [JSInvokable]
