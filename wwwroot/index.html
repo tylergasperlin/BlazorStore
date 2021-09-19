@@ -34,6 +34,14 @@
         window.blazorFocus = {
             set: (element) => { element.focus() }
         }
+        window.stateManager = {
+            save: (key, data) => {
+                localStorage[key] = data;
+            },
+            load: (key) => {
+                return localStorage[key]
+            }
+        }
     </script>
 </body>
 

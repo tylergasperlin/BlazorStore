@@ -22,6 +22,8 @@ namespace BlazorStore
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IEmployee, EmployeeService>();
             builder.Services.AddScoped<CounterStateService>();
+            builder.Services.AddScoped<LocalStorageService>();
+
             await builder.Build().RunAsync();
 
         }

@@ -1,6 +1,8 @@
 @page "/counter"
 @inject IJSRuntime JS;
 @inject CounterStateService CounterModel
+@inject LocalStorageService localStorageService
+@implements IDisposable
 
 <h1>Counter</h1>
 
@@ -94,8 +96,32 @@
         await JS.InvokeVoidAsync("JSSayHello", DotNetObjectReference.Create(person));
     }
 
+    // not used
+    private async Task InvokeFocus() {
+        await JS.InvokeVoidAsync("blazorFocus.set", inputElement);
+
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync("blazorFocus.set", inputElement);
+        await InvokeFocus();
+        if (firstRender) {
+            CounterModel.Onchange += Handler;
+            CounterModel.Onchange += StateHasChanged;
+            await localStorageService.LoadAsync();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
+
+    public void Dispose() {
+        CounterModel.Onchange -= Handler;
+    }
+
+    async void Handler() {
+        await localStorageService.SaveAsync();
+    }
+
+
+
 }
